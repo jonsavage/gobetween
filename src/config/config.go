@@ -99,6 +99,9 @@ type Server struct {
 
 	// Healthcheck configuration
 	Healthcheck *HealthcheckConfig `toml:"healthcheck" json:"healthcheck"`
+
+	// Middlewares configuration
+	Middlewares []MiddlewareConfig `toml:"middleware" json:"middleware"`
 }
 
 /**
@@ -133,11 +136,11 @@ type tlsCommon struct {
  * for protocol = "tls"
  */
 type Tls struct {
-	AcmeEnabled bool     `toml:"acme_enabled" json:"acme_enabled"`
-	AcmeHosts   []string `toml:"acme_hosts" json:"acme_hosts"`
-	AcmeCacheDir string  `toml:"acme_cache_dir" json:"acme_cache_dir"`
-	CertPath    string   `toml:"cert_path" json:"cert_path"`
-	KeyPath     string   `toml:"key_path" json:"key_path"`
+	AcmeEnabled  bool     `toml:"acme_enabled" json:"acme_enabled"`
+	AcmeHosts    []string `toml:"acme_hosts" json:"acme_hosts"`
+	AcmeCacheDir string   `toml:"acme_cache_dir" json:"acme_cache_dir"`
+	CertPath     string   `toml:"cert_path" json:"cert_path"`
+	KeyPath      string   `toml:"key_path" json:"key_path"`
 	tlsCommon
 }
 
@@ -287,4 +290,17 @@ type ExecHealthcheckConfig struct {
 	ExecCommand                string `toml:"exec_command" json:"exec_command,omitempty"`
 	ExecExpectedPositiveOutput string `toml:"exec_expected_positive_output" json:"exec_expected_positive_output"`
 	ExecExpectedNegativeOutput string `toml:"exec_expected_negative_output" json:"exec_expected_negative_output"`
+}
+
+type MiddlewareConfig struct {
+	Kind string `toml:"kind" json:"kind"`
+
+	//Depending on kind
+	*MinimalHttpMiddlewareConfig
+}
+
+//kind min_http
+type MinimalHttpMiddlewareConfig struct {
+	XffHeaderName string `toml:"xff_header_name" json:"xff_header_name"`
+	ViaHeaderName string `toml:"via_header_name" json:"via_header_name"`
 }

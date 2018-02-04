@@ -345,6 +345,22 @@ func prepareConfig(name string, server config.Server, defaults config.Connection
 		return config.Server{}, errors.New("Not supported balance type " + server.Balance)
 	}
 
+	/* Middlewares */
+	if server.Protocol == "udp" && len(server.Middlewares) > 0 {
+		return config.Server{}, errors.New("Middlewares are not supported for udp server")
+	}
+
+	for _, middleware := range server.Middlewares {
+		switch middleware.Kind {
+		case "min_http":
+			if middleware.MinimalHttpMiddlewareConfig.XffHeaderName == "" {
+				middleware.MinimalHttpMiddlewareConfig.XffHeaderName = "X-Forwarded-For"
+			}
+		default:
+			return config.Server{}, errors.New("Unsupported middleware kind " + middleware.Kind)
+		}
+	}
+
 	/* Discovery */
 	switch server.Discovery.Failpolicy {
 	case

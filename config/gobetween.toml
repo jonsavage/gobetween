@@ -79,6 +79,21 @@ protocol = "udp"
       "91.239.100.100:53"
   ]
 
+[servers.httpsample]
+bind = "localhost:8080"
+protocol = "tcp"
+
+  [servers.httpsample.discovery]
+  kind = "static"
+  static_list = [
+      "localhost:8001",
+  ]
+
+  [[servers.httpsample.middleware]]
+  kind = "min_http"
+  xff_header_name = "X-Forwarded-For"
+  #via_header_name = "Via"
+
 #
 # -------------------- example ----------------------------- #
 
@@ -96,6 +111,16 @@ protocol = "udp"
 #client_idle_timeout = "10m"
 #backend_idle_timeout = "10m"
 #backend_connection_timeout = "5s"
+#
+## --------------------  middlewares -------------------------#
+#
+#  [[servers.default.middleware]]      # (optional) repeat this block as many times as you need to inject middlewares
+
+#  # -- min_http -- #
+#  kind = "min_http"
+#  xff_header_name = "X-Forwarded-For" # (optional) by default "X-Forwarded-For"
+#  via_header_name = ""                # (optional) by default skipped
+#
 #
 ## ---------------- backends tls properties ----------------- #
 #

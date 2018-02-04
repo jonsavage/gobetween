@@ -20,7 +20,7 @@
   * **TLS** - [TLS Termination](https://github.com/yyyar/gobetween/wiki/Protocols#tls) + [ACME](https://github.com/yyyar/gobetween/wiki/Protocols#tls) & [TLS Proxy](https://github.com/yyyar/gobetween/wiki/Tls-Proxying)
   * **UDP**
 
-  
+
 * [Clear & Flexible Configuration](https://github.com/yyyar/gobetween/wiki/Configuration) with [TOML](config/gobetween.toml) or [JSON](config/gobetween.json)
   * **File** - read configuration from the file
   * **URL** - query URL by HTTP and get configuration from the response body 
@@ -31,7 +31,7 @@
   * **Configuration** - dump current config 
   * **Servers** - list, create & delete
   * **Stats & Metrics** - for servers and backends including rx/tx, status, active connections & etc.
- 
+
 * [Discovery](https://github.com/yyyar/gobetween/wiki/Discovery)
   * **Static** - hardcode backends list in config file
   * **Docker** - query backends from Docker / Swarm API filtered by label
@@ -52,6 +52,9 @@
   * **Iphash** - route client to the same backend based on client ip hash
   * **Leastconn** - select backend with least active connections
   * **Leastbandwidth** -  backends with least bandwidth
+
+* [Middlewares](https://github.com/yyyar/gobetween/wiki/Middlewares)
+  * **MinHttp** - minimal http(s) support of Via and X-Forwarded-For headers
 
 * Integrates seamlessly with Docker and with any custom system (thanks to Exec discovery and healtchecks)
 

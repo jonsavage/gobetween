@@ -18,6 +18,7 @@ import (
 	"../../discovery"
 	"../../healthcheck"
 	"../../logging"
+	"../../middlewares"
 	"../../stats"
 	"../../utils"
 	"../../utils/proxyprotocol"
@@ -357,6 +358,17 @@ func (this *Server) handle(ctx *core.TcpContext) {
 			}
 		default:
 			log.Error("Unsupported proxy_protocol version " + this.cfg.ProxyProtocol.Version + ", aborting connection")
+			return
+		}
+	}
+
+	/* --- Inject middlewares --- */
+
+	for _, middleware := range this.cfg.Middlewares {
+		log.Debug("Injecting middleware ", middleware.Kind)
+		clientConn, backendConn, err = middlewares.Apply(middleware, clientConn, backendConn)
+		if err != nil {
+			log.Error("Failed to create middleware ", middleware.Kind, err)
 			return
 		}
 	}
