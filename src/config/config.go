@@ -101,7 +101,7 @@ type Server struct {
 	Healthcheck *HealthcheckConfig `toml:"healthcheck" json:"healthcheck"`
 
 	// Middlewares configuration
-	Middlewares []MiddlewareConfig `toml:"middleware" json:"middleware"`
+	Middlewares []*MiddlewareConfig `toml:"middleware" json:"middleware"`
 }
 
 /**

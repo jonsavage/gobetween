@@ -91,7 +91,7 @@ protocol = "tcp"
 
   [[servers.httpsample.middleware]]
   kind = "min_http"
-  xff_header_name = "X-Forwarded-For"
+  #xff_header_name = "X-Forwarded-For"
   #via_header_name = "Via"
 
 #

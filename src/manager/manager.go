@@ -353,6 +353,9 @@ func prepareConfig(name string, server config.Server, defaults config.Connection
 	for _, middleware := range server.Middlewares {
 		switch middleware.Kind {
 		case "min_http":
+			if middleware.MinimalHttpMiddlewareConfig == nil {
+				middleware.MinimalHttpMiddlewareConfig = &config.MinimalHttpMiddlewareConfig{}
+			}
 			if middleware.MinimalHttpMiddlewareConfig.XffHeaderName == "" {
 				middleware.MinimalHttpMiddlewareConfig.XffHeaderName = "X-Forwarded-For"
 			}

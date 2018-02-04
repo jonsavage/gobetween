@@ -9,7 +9,7 @@ import (
  * Should parse first HTTP request headers from client add header X-Forwarded-For with client ip and forward
  * this modified headers to backendConn
  */
-func minHttp(conf config.MiddlewareConfig, clientConn, backendConn net.Conn) (net.Conn, net.Conn, error) {
+func minHttp(conf *config.MiddlewareConfig, clientConn, backendConn net.Conn) (net.Conn, net.Conn, error) {
 
 	xff := getIp(clientConn.RemoteAddr())
 	via := getIp(clientConn.LocalAddr())

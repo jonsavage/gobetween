@@ -6,7 +6,7 @@ import (
 	"net"
 )
 
-func Apply(middleware config.MiddlewareConfig, clientConn, backendConn net.Conn) (net.Conn, net.Conn, error) {
+func Apply(middleware *config.MiddlewareConfig, clientConn, backendConn net.Conn) (net.Conn, net.Conn, error) {
 	switch middleware.Kind {
 	case "min_http":
 		return minHttp(middleware, clientConn, backendConn)
