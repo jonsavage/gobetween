@@ -52,6 +52,7 @@
   * **Iphash** - route client to the same backend based on client ip hash
   * **Leastconn** - select backend with least active connections
   * **Leastbandwidth** -  backends with least bandwidth
+  * **Honeybee** -  Honeybee Algorithm
 
 * Integrates seamlessly with Docker and with any custom system (thanks to Exec discovery and healtchecks)
 
@@ -109,3 +110,25 @@ MIT. See LICENSE file for more details.
 
 ## Logo
 Logo by [Max Demchenko](https://www.linkedin.com/in/max-demchenko-116170112)
+
+
+## Honeybee Implementation Testing
+
+start mockServer
+
+```
+cd mockServer
+flask run -h localhost -p 9000 &
+flask run -h localhost -p 9001 &
+```
+you can omit the `&`s if you run each server in it's own terminal.
+
+then, in another terminal:
+```
+make deps
+make run
+```
+then, in yet _another_ terminal:
+
+`curl localhost:3000`
+

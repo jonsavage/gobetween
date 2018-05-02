@@ -54,12 +54,13 @@ backend_connection_timeout = "0" # Backend connection timeout (ignored in udp)
 [servers.sample]
 protocol = "tcp"
 bind = "0.0.0.0:3000"
+balance = "honeybee"
 
   [servers.sample.discovery]
   kind = "static"
   static_list = [
-      "localhost:8000",
-      "localhost:8001"
+      "localhost:9000",
+      "localhost:9001"
   ]
 
 # ---------- udp example ----------- #
@@ -88,9 +89,9 @@ protocol = "udp"
 
 #[servers.default]
 #
-#bind = "localhost:3000"     #  (required) "<host>:<port>"
-#protocol = "tcp"            #  (required) "tcp" | "tls" | "udp"
-#balance = "weight"          #  (optional [weight]) "weight" | "leastconn" | "roundrobin" | "iphash" | "leastbandwidth"
+# bind = "localhost:3000"     #  (required) "<host>:<port>"
+# protocol = "tcp"            #  (required) "tcp" | "tls" | "udp"
+# balance = "honeybee"          #  (optional [weight]) "weight" | "leastconn" | "roundrobin" | "iphash" | "leastbandwidth" | "honeybee"
 #
 #max_connections = 0
 #client_idle_timeout = "10m"
