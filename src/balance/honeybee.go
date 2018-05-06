@@ -22,7 +22,7 @@ func (b *HoneybeeBalancer) Elect(context core.Context, backends []*core.Backend)
 		fmt.Println("Load of Currently Selected Backend: ", loadOfCurrentBackend)
 
 		if loadOfCurrentBackend > threshold {
-			currentBackendIndex = getIndexOfNextBackendRoundRobinStyle(backends)
+			currentBackendIndex = getIndexOfNextBackendHoneyBeeStyle(backends)
 			fmt.Println("Threshold exceeded, moving on to:")
 			fmt.Println("\tbackend: ", currentBackendIndex)
 			fmt.Println("\twith load: ", backendClient.GetLoadForBackend(backends[currentBackendIndex]))
@@ -45,6 +45,19 @@ func getIndexOfNextBackendRoundRobinStyle(backends []*core.Backend) int {
 	}
 
 	return indexToReturn
+}
+
+func getIndexOfNextBackendHoneyBeeStyle(backends []*core.Backend) int {
+	backendClient := core.BackendClient{}
+	//init smallest load with first backends load
+	var smallestLoad = backendClient.GetLoadForBackend(backends[0])
+	var smallestLoadIndex = 0
+	for index := range backends {
+		 if backendClient.GetLoadForBackend(backends[index]) < smallestLoad {
+		 	smallestLoadIndex = index
+		 }
+	}
+	return smallestLoadIndex
 }
 
 func shouldPoll() bool {
