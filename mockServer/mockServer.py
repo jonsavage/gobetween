@@ -20,12 +20,12 @@ def increment_worksheet_counter():
 
 def increment_load():
   global load
-  load += .1
+  load += 1
 
 def decrement_load():
   global load
-  if (load > .1):
-    load -= .1
+  if (load >= 1):
+    load -= 1
 
 def get_current_load():
   global load
@@ -50,14 +50,17 @@ def close_workbook():
 
   chart.add_series({
     'name':str(request.host)[-4:],
-    'categories': '=worksheet!$A2:$A$' + str(worksheet_counter - 1),
-    'values': '=worksheet!$B2:$B$' + str(worksheet_counter - 1)
+    'categories': '=worksheet!$A2:$A$' + str(worksheet_counter),
+    'values': '=worksheet!$B2:$B$' + str(worksheet_counter)
   })
+
+  worksheet.write("D1", "average")
+  worksheet.write_formula("E1", '=AVERAGE($B2:$B$' + str(worksheet_counter) + ')')
 
   print("worksheet_counter")
   print(str(worksheet_counter))
 
-  worksheet.insert_chart("D1", chart)
+  worksheet.insert_chart("D5", chart)
 
   workbook.close()
   return jsonify({'close': 'close'})

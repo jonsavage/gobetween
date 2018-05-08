@@ -8,12 +8,12 @@ import (
 )
 
 type load struct {
-	Number float64 `json:"load"`
+	Number int `json:"load"`
 }
 
 type BackendClient struct{}
 
-func (backendClient *BackendClient) GetLoadForBackend(backend *Backend) float64 {
+func (backendClient *BackendClient) GetLoadForBackend(backend *Backend) int {
 
 	restClient := http.Client{}
 	url := "http://" + backend.Target.Address() + "/load"

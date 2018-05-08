@@ -9,7 +9,7 @@ import (
 type HoneybeeBalancer struct{}
 
 var currentBackendIndex = 0
-var threshold = .8
+var threshold = 8
 var pollingFrequency = 5
 var totalHits = 0
 
@@ -53,9 +53,13 @@ func getIndexOfNextBackendHoneyBeeStyle(backends []*core.Backend) int {
 	var smallestLoad = backendClient.GetLoadForBackend(backends[0])
 	var smallestLoadIndex = 0
 	for index := range backends {
-		 if backendClient.GetLoadForBackend(backends[index]) < smallestLoad {
-		 	smallestLoadIndex = index
-		 }
+		loadForBackend := backendClient.GetLoadForBackend(backends[index])
+		fmt.Println("load For: ", index)
+		fmt.Println(loadForBackend)
+
+		if loadForBackend < smallestLoad {
+			smallestLoadIndex = index
+		}
 	}
 	return smallestLoadIndex
 }
