@@ -55,6 +55,7 @@ backend_connection_timeout = "0" # Backend connection timeout (ignored in udp)
 protocol = "tcp"
 bind = "0.0.0.0:3000"
 balance = "honeybee"
+# balance = "roundrobin"
 
   [servers.sample.discovery]
   kind = "static"

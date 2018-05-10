@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request
-import xlsxwriter, time, threading, uuid
+import xlsxwriter, time, threading, uuid, random
 
 app = Flask(__name__)
 
@@ -20,12 +20,16 @@ def increment_worksheet_counter():
 
 def increment_load():
   global load
-  load += 1
+  load += 2
+
+def increment_load_randomly():
+  global load
+  load += random.randint(1,3)
 
 def decrement_load():
   global load
-  if (load >= 1):
-    load -= 1
+  if (load >= 2):
+    load -= 2
 
 def get_current_load():
   global load
@@ -33,7 +37,8 @@ def get_current_load():
 
 @app.route("/")
 def get_content():
-  increment_load()
+  # increment_load()
+  increment_load_randomly()
   print("get content")
   return "load: " + str(get_current_load())
 

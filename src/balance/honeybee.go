@@ -2,14 +2,14 @@ package balance
 
 import (
 	"fmt"
-
+	"math/rand"
 	"../core"
 )
 
 type HoneybeeBalancer struct{}
 
 var currentBackendIndex = 0
-var threshold = 8
+var threshold = 50
 var pollingFrequency = 5
 var totalHits = 0
 
@@ -58,11 +58,20 @@ func getIndexOfNextBackendHoneyBeeStyle(backends []*core.Backend) int {
 		fmt.Println(loadForBackend)
 
 		if loadForBackend < smallestLoad {
+			smallestLoad = loadForBackend
 			smallestLoadIndex = index
 		}
 	}
 	return smallestLoadIndex
 }
+
+func getIndexForNextBackendRandomStyle(backends []*core.Backend) int {
+	randomIndex := rand.Intn(len(backends))
+
+	return randomIndex
+}
+
+// myrand := random(1, 6)
 
 func shouldPoll() bool {
 	return totalHits%pollingFrequency == 0

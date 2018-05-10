@@ -1,3 +1,5 @@
+#!/bin/sh
+
 rm *.xlsx
 
 export FLASK_APP=mockServer.py
@@ -12,3 +14,9 @@ flask run -h localhost -p 9007 &
 flask run -h localhost -p 9008 &
 flask run -h localhost -p 9009 &
 flask run -h localhost -p 9010 &
+
+sleep 1
+
+./loadCreator.sh
+
+./stop.sh
