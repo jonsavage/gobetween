@@ -18,14 +18,15 @@ func (b *HoneybeeBalancer) Elect(context core.Context, backends []*core.Backend)
 
 	if shouldPoll() {
 		loadOfCurrentBackend := backendClient.GetLoadForBackend(backends[currentBackendIndex])
-
-		fmt.Println("Load of Currently Selected Backend: ", loadOfCurrentBackend)
+		fmt.Print("On backend ", currentBackendIndex + 1)
+		fmt.Println(" with load of ", loadOfCurrentBackend
+		//fmt.Println( "Load of Currently Selected Backend: ", loadOfCurrentBackend)
 
 		if loadOfCurrentBackend > threshold {
 			currentBackendIndex = getIndexOfNextBackendHoneyBeeStyle(backends)
-			fmt.Println("Threshold exceeded, moving on to:")
-			fmt.Println("\tbackend: ", currentBackendIndex)
-			fmt.Println("\twith load: ", backendClient.GetLoadForBackend(backends[currentBackendIndex]))
+			fmt.Println("THRESHOLD EXCEEDED, moving on to:")
+			fmt.Println("\tBackend: ", currentBackendIndex)
+			fmt.Println("\tWith Load: ", backendClient.GetLoadForBackend(backends[currentBackendIndex]))
 		}
 	}
 
@@ -54,8 +55,8 @@ func getIndexOfNextBackendHoneyBeeStyle(backends []*core.Backend) int {
 	var smallestLoadIndex = 0
 	for index := range backends {
 		loadForBackend := backendClient.GetLoadForBackend(backends[index])
-		fmt.Println("load For: ", index)
-		fmt.Println(loadForBackend)
+		fmt.Print("Load for backend number ", index + 1)
+		fmt.Println(" is ", loadForBackend)
 
 		if loadForBackend < smallestLoad {
 			smallestLoad = loadForBackend

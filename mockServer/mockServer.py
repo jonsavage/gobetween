@@ -14,8 +14,6 @@ current_time = time.time()
 
 def increment_worksheet_counter():
   global worksheet_counter
-  print("counter:")
-  print(worksheet_counter)
   worksheet_counter = worksheet_counter + 1
 
 def increment_load():
@@ -39,53 +37,33 @@ def get_current_load():
 def get_content():
   # increment_load()
   increment_load_randomly()
-  print("get content")
   return "load: " + str(get_current_load())
 
 @app.route("/load", methods=['GET'])
 def get_load():
   current_load = get_current_load()
-  print("load fetched, current load:" + str(current_load))
-
   return jsonify({'load': current_load})
 
 @app.route("/close", methods=['GET'])
 def close_workbook():
   chart = workbook.add_chart({"type": "line"})
-
   chart.add_series({
     'name':str(request.host)[-4:],
     'categories': '=worksheet!$A2:$A$' + str(worksheet_counter),
     'values': '=worksheet!$B2:$B$' + str(worksheet_counter)
   })
-
   worksheet.write("D1", "average")
   worksheet.write_formula("E1", '=AVERAGE($B2:$B$' + str(worksheet_counter) + ')')
-
-  print("worksheet_counter")
-  print(str(worksheet_counter))
-
   worksheet.insert_chart("D5", chart)
-
   workbook.close()
   return jsonify({'close': 'close'})
 
 #########################################################################################
 def f(f_stop):
-  print("f")
-
-
-
-
-
   worksheet.write(worksheet_counter,0,time.time() - current_time)
   worksheet.write(worksheet_counter,1,get_current_load())
   # global worksheet_counter
   increment_worksheet_counter()
-
-
-
-
 
   if (get_current_load() > 0):
     decrement_load()
