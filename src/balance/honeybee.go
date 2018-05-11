@@ -19,7 +19,7 @@ func (b *HoneybeeBalancer) Elect(context core.Context, backends []*core.Backend)
 	if shouldPoll() {
 		loadOfCurrentBackend := backendClient.GetLoadForBackend(backends[currentBackendIndex])
 		fmt.Print("On backend ", currentBackendIndex + 1)
-		fmt.Println(" with load of ", loadOfCurrentBackend
+		fmt.Println(" with load of ", loadOfCurrentBackend)
 		//fmt.Println( "Load of Currently Selected Backend: ", loadOfCurrentBackend)
 
 		if loadOfCurrentBackend > threshold {
