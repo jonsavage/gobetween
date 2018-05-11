@@ -61,7 +61,7 @@ balance = "honeybee"
   kind = "static"
   static_list = [
       "localhost:9000",
-      "localhost:9001"
+      "localhost:9001",
       "localhost:9002",
       "localhost:9003",
       "localhost:9004",
